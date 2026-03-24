@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const admin = verifyAdmin(req);
@@ -31,7 +31,7 @@ export async function PUT(
         });
 
         const order = await prisma.order.findUnique({
-            where: { id: params.id },
+            where: { id: id },
             include: { user: true },
         });
 

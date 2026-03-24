@@ -60,7 +60,7 @@ export default function CoffeeCategoryAccordion() {
             COFFEE COLLECTION
           </h2>
 
-          <p className="max-w-[620px] text-sm md:text-lg">
+          <p className="max-w-155 text-sm md:text-lg">
             Discover our carefully curated coffee categories — from premium
             beans to machines and handcrafted beverages.
           </p>
