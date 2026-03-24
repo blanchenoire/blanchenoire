@@ -15,7 +15,7 @@ export default function Home() {
       <main className="bg-[#F4F4F4] min-h-screen">
         <Navbar/>
         <Hero/>
-        <ProductShowcase/>
+        {/* <ProductShowcase/> */}
         <SpecialtyCoffee/>
         <SustainabilitySection/>
         <ProductGrid/>

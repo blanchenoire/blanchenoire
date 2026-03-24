@@ -32,6 +32,7 @@ model Product {
   price          Decimal
   category       String?
   stock          Int         @default(0)
+  bestSeller     Boolean     @default(false)
   createdAt      DateTime    @default(now())
   productGallery String[]
   CartItem       CartItem[]
@@ -43,10 +44,13 @@ model User {
   email           String           @unique
   username        String
   password        String
-  contact         Int              @unique
+  contact         String           @unique
   role            Role
   Cart            Cart?
   orders          Order[]
+  otp             String?
+  otpExpiry       DateTime?
+  isEmailVerified Boolean? @default(false)
   deliveryDetails DeliveryDetail[]
   createdAt       DateTime         @default(now())
 }
@@ -58,7 +62,7 @@ model OrderItem {
   productId String
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
-  price     Float // snapshot of price at time of purchase
+  price     Decimal // snapshot of price at time of purchase
 }
 
 model DeliveryDetail {
@@ -77,20 +81,22 @@ model DeliveryDetail {
 }
 
 model Order {
-  id               String         @id @default(cuid())
-  userId           String
-  user             User           @relation(fields: [userId], references: [id])
-  items            OrderItem[]
-  deliveryDetailId String // which address they chose at checkout
-  deliveryDetail   DeliveryDetail @relation(fields: [deliveryDetailId], references: [id])
-  status           OrderStatus    @default(Pending)
-  total            Float
-  createdAt        DateTime       @default(now())
+  id                String         @id @default(cuid())
+  userId            String
+  user              User           @relation(fields: [userId], references: [id])
+  items             OrderItem[]
+  deliveryDetailId  String // which address they chose at checkout
+  deliveryDetail    DeliveryDetail @relation(fields: [deliveryDetailId], references: [id])
+  status            OrderStatus    @default(Pending)
+  razorpayOrderId   String?        @unique
+  razorpayPaymentId String?
+  paymentStatus     PaymentStatus  @default(Pending)
+  total             Decimal
+  createdAt         DateTime       @default(now())
 }
 
 enum OrderStatus {
   Pending
-  Confirmed
   Shipped
   Delivered
   Cancelled
@@ -99,4 +105,11 @@ enum OrderStatus {
 enum Role {
   Admin
   User
+}
+
+enum PaymentStatus {
+  Pending
+  Paid
+  Failed
+  Refunded
 }

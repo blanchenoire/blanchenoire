@@ -2,10 +2,10 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, {params}: any){
-    const productId = params.id;
+    const {id} = await params;
     const product = await prisma.product.findFirst({
         where: {
-            id: productId
+            id
         }
     })
     if(!product){
@@ -22,12 +22,12 @@ export async function GET(req: NextRequest, {params}: any){
 }
 
 export async function DELETE(req: NextRequest, { params }: any) {
-  const productId = params.id;
+  const {id} = await params;
 
   try {
     const product = await prisma.product.delete({
       where: {
-        id: productId
+        id
       }
     });
 
@@ -46,14 +46,14 @@ export async function DELETE(req: NextRequest, { params }: any) {
 }
 
 export async function PATCH(req: NextRequest, { params }: any) {
-  const productId = params.id;
+  const {id} = await params;
 
   try {
     const body = await req.json();
 
     const updatedProduct = await prisma.product.update({
       where: {
-        id: productId
+        id: id
       },
       data: {
         ...body
