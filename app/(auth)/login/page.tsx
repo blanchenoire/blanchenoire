@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLogin, setIsLogin] = useState(true);
@@ -74,7 +74,7 @@ export default function AuthPage() {
           setError(response.message);
         }
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -83,7 +83,6 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f3ef] flex">
-
       {/* LEFT SIDE */}
       <div className="hidden md:flex w-1/2 bg-[#e7e1d3] flex-col justify-between p-12 rounded-r-[40px]">
         <div className="text-3xl font-semibold text-red-600 italic">
@@ -132,7 +131,6 @@ export default function AuthPage() {
 
           {/* FORM */}
           <div className="flex flex-col gap-4">
-
             {!isLogin && (
               <input
                 type="text"
@@ -161,6 +159,7 @@ export default function AuthPage() {
               onChange={handleChange}
               className="px-4 py-3 rounded-full bg-[#f7f7f7] outline-none focus:ring-2 focus:ring-black"
             />
+
             {isLogin && (
               <div className="flex justify-end mt-1">
                 <button
@@ -190,10 +189,6 @@ export default function AuthPage() {
                   onChange={handleChange}
                   className="px-4 py-3 rounded-full bg-[#f7f7f7] outline-none focus:ring-2 focus:ring-black"
                 />
-                <input
-                  type=""
-
-                />
               </>
             )}
 
@@ -205,7 +200,6 @@ export default function AuthPage() {
             >
               {loading ? "Please wait..." : isLogin ? "Login" : "Create Account"}
             </button>
-
           </div>
 
           {/* FOOTER */}
@@ -218,9 +212,16 @@ export default function AuthPage() {
               {isLogin ? "Sign up" : "Login"}
             </button>
           </p>
-
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <AuthContent />
+    </Suspense>
   );
 }

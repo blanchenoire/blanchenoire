@@ -12,9 +12,9 @@ import {
 import { URL } from "../config";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CartDrawer from "./CartDrawer";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 
-export default function Navbar() {
+function NavbarContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -65,15 +65,14 @@ export default function Navbar() {
         <div className="w-[95%] border-b-2 md:w-[92%] bg-red-550 rounded-full px-4 md:px-8 py-3 flex items-center justify-between">
 
           {/* LOGO */}
-          <div onClick={() => router.push("/")} className="cursor-pointer flex ">
-            {/* <img className="w-20 md:w-24" src="/final-logo.png" alt="logo" /> */}
+          <div onClick={() => router.push("/")} className="cursor-pointer flex">
             <img className="w- md:w-24" src="/a.png" alt="logo" />
           </div>
 
-          {/* RIGHT SIDE (UNCHANGED STRUCTURE) */}
-          <div className="flex items-center gap-4  font-medium text-xl md:gap-8 text-sm">
+          {/* RIGHT SIDE */}
+          <div className="flex items-center gap-4 font-medium text-xl md:gap-8 text-sm">
 
-            {/* DESKTOP LINKS (same position as before) */}
+            {/* DESKTOP LINKS */}
             <div className="hidden md:flex items-center gap-8">
               <a href={`${URL}/products`} className="cursor-pointer">Shop</a>
               <a className="cursor-pointer">Contact</a>
@@ -174,5 +173,13 @@ export default function Navbar() {
 
       <CartDrawer isOpen={cartOpen} setIsOpen={setCartOpen} />
     </>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <Suspense fallback={<div className="w-full h-16" />}>
+      <NavbarContent />
+    </Suspense>
   );
 }
