@@ -25,7 +25,6 @@ export default function OurStorySection() {
         </p>
 
         <button
-          onClick={() => router.push("/api/contact")}
           className="flex items-center gap-3 border-b border-black pb-1 text-sm md:text-lg"
         >
           CONTACT US
