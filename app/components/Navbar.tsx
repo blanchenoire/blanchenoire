@@ -65,8 +65,12 @@ function NavbarContent() {
         <div className="w-[95%] border-b-2 md:w-[92%] bg-red-550 rounded-full px-4 md:px-8 py-3 flex items-center justify-between">
 
           {/* LOGO */}
-          <div onClick={() => router.push("/")} className="cursor-pointer flex">
-            <img className="w- md:w-24" src="/a.png" alt="logo" />
+          <div onClick={() => router.push("/")} className="cursor-pointer flex items-center">
+            <img
+              className="h-12 sm:h-12 md:h-16 w-auto object-contain"
+              src="/a.png"
+              alt="logo"
+            />
           </div>
 
           {/* RIGHT SIDE */}
