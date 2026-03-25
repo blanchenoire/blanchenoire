@@ -1,9 +1,15 @@
 import { prisma } from "@/lib/prisma";
+import { verifyJWT } from "@/lib/verify";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+    const decodedUser = verifyJWT(req);
+    if (!decodedUser) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const body = await req.json();
-    const { userId, productId, quantity } = body;
+    const userId = decodedUser.userId
+    const {productId, quantity } = body;
 
     if (!userId || !productId) {
         return NextResponse.json(

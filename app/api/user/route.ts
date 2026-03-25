@@ -1,8 +1,13 @@
 import { prisma } from "@/lib/prisma";
+import { verifyJWT } from "@/lib/verify";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, {params}: any){
-    const {id} = await params
+    const decodedUser = verifyJWT(req);
+        if (!decodedUser) {
+          return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+        const id = decodedUser.userId
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -34,7 +39,11 @@ export async function GET(req: NextRequest, {params}: any){
 }
 
 export async function PATCH(req: NextRequest, {params}: any){
-    const {id} = await params
+    const decodedUser = verifyJWT(req);
+    if (!decodedUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const id = decodedUser.userId
     const body = await req.json();
     try {
         const updatedUser = await prisma.user.update({
@@ -43,11 +52,12 @@ export async function PATCH(req: NextRequest, {params}: any){
             },
             data: body
         })
+        const {password, ...validUpdatedUser} = updatedUser
 
         return NextResponse.json({
             success: true,
             message: "User Updated Successfully",
-            data: updatedUser
+            data: validUpdatedUser
         })
     } catch (error) {
         return NextResponse.json({

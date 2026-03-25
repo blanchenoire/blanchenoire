@@ -1,17 +1,22 @@
 import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/sendEmail";
+import { verifyJWT } from "@/lib/verify";
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
+    const decodedUser = verifyJWT(req);
+    if (!decodedUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = decodedUser.userId
     const body = await req.json();
 
     const {
       razorpay_order_id,
       razorpay_payment_id,
-      razorpay_signature,
-      userId,
+      razorpay_signature
     } = body;
 
     const sign = razorpay_order_id + "|" + razorpay_payment_id;

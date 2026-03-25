@@ -30,7 +30,7 @@ export default function CartDrawer({ isOpen, setIsOpen }: CartDrawerProps) {
     let sum = 0;
     setItemsLoading(true)
 
-    const res = await fetch(`/api/cart/user/${userId}`, {
+    const res = await fetch("/api/cart/user", {
       headers: {
         authorization: `Bearer ${token}`,
       },

@@ -36,10 +36,10 @@ export default function Checkout() {
                 setLoading(true);
 
                 const [cartRes, addrRes] = await Promise.all([
-                    fetch(`/api/cart/user/${userId}`, {
+                    fetch("/api/cart/user", {
                         headers: { authorization: `Bearer ${token}` }
                     }),
-                    fetch(`/api/delivery-details/user/${userId}`, {
+                    fetch("/api/delivery-details/user", {
                         headers: { authorization: `Bearer ${token}` }
                     })
                 ]);
@@ -133,7 +133,7 @@ export default function Checkout() {
         if (!userId || !token) return;
 
         try {
-            const res = await fetch(`/api/delivery-details/user/${userId}`, {
+            const res = await fetch("/api/delivery-details/user", {
                 method: "POST",
                 headers: {
                     authorization: `Bearer ${token}`,
@@ -186,7 +186,6 @@ export default function Checkout() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    userId,
                     deliveryDetailId: selectedAddress
                 })
             })
@@ -205,7 +204,10 @@ export default function Checkout() {
                 handler: async (response) => {
                     const verifyRes = await fetch("/api/order/verify-payment", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: {
+                            "Content-Type": "application/json",
+                            "authorization": `Bearer ${token}`
+                        },
                         body: JSON.stringify(response),
                     });
                     const data = await verifyRes.json();

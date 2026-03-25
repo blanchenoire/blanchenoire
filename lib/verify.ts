@@ -1,10 +1,14 @@
 import jwt, { JwtPayload } from "jsonwebtoken"
 import { NextRequest } from "next/server";
 
-export function verifyJWT(token: string): JwtPayload | null{
+export function verifyJWT(req: NextRequest): JwtPayload | null{
+  const token = req.headers.get("authorization")?.split(" ")[1];
+  if(!token){
+    return null;
+  }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload  
-        return decoded
+        return decoded;
     } catch (error) {
         return null;
     }

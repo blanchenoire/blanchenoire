@@ -71,7 +71,6 @@ export default function ProductPage() {
       const res = await fetch("/api/cart", {
         method: "POST",
         body: JSON.stringify({
-          userId: userId,
           productId: id,
           quantity: qty
         }),

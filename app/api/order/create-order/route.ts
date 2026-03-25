@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { verifyJWT } from "@/lib/verify";
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 
@@ -9,9 +10,14 @@ const razorpay = new Razorpay({
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
+  const decodedUser = verifyJWT(req);
+  if (!decodedUser) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = decodedUser.userId
 
   const cart = await prisma.cart.findUnique({
-    where: { userId: body.userId },
+    where: { userId: userId },
     include: {
       CartItem: {
         include: { Product: true },
@@ -41,7 +47,7 @@ export async function POST(req: NextRequest) {
   // Save order to DB with razorpayOrderId
   const order = await prisma.order.create({
     data: {
-      userId: body.userId,
+      userId: userId,
       deliveryDetailId: body.deliveryDetailId,
       total: total,
       razorpayOrderId: razorpayOrder.id, // store this for verification later
@@ -56,7 +62,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  
+
 
   return NextResponse.json({
     success: true,

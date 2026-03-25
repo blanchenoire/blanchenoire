@@ -3,6 +3,7 @@ import Image from "next/image";
 export default function SustainabilitySection() {
   return (
     <div>
+      
       {/* <section className="relative w-full bg-[#714236] py-20 md:py-40 overflow-hidden"> */}
       <section className="relative w-full bg-[#D8D4BC] py-20 md:py-40 overflow-hidden">
 

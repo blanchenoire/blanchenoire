@@ -14,7 +14,7 @@ export default function ProfilePage() {
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token")
-    const res = await fetch(`/api/user/${id}`, {
+    const res = await fetch("/api/user", {
       headers: {
         "authorization": `Bearer ${token}`
       }
@@ -34,9 +34,12 @@ export default function ProfilePage() {
   }, [id]);
 
   const handleUpdate = async () => {
-    await fetch(`/api/user/${id}`, {
+    const token = localStorage.getItem("token")
+    await fetch("/api/user", {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+       },
       body: JSON.stringify(form),
     });
     setEditing(false);
