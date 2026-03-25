@@ -74,7 +74,7 @@ function NavbarContent() {
 
             {/* DESKTOP LINKS */}
             <div className="hidden md:flex items-center gap-8">
-              <a href={`${URL}/products`} className="cursor-pointer">Shop</a>
+              <a href={"/products"} className="cursor-pointer">Shop</a>
               <a className="cursor-pointer">Contact</a>
               <a className="cursor-pointer">Categories</a>
             </div>
