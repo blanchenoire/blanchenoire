@@ -68,7 +68,7 @@ export default function CoffeeCategoryAccordion() {
 
         <button
           onClick={() => router.push("/products")}
-          className="bg-[#D8D4BC] text-black px-5 py-2 md:px-6 md:py-3 rounded-full"
+          className="bg-[#0E3B34] text-white px-5 py-2 md:px-6 md:py-3 rounded-full"
         >
           EXPLORE ALL PRODUCTS
         </button>
@@ -112,6 +112,7 @@ export default function CoffeeCategoryAccordion() {
                       className="bg-[#E7CBB4] rounded-3xl p-6 md:p-8 flex flex-col items-center"
                     >
                       <Image
+                        className="rounded-lg"
                         src={p.productGallery?.[0]}
                         alt={p.productName}
                         width={150}
@@ -126,7 +127,7 @@ export default function CoffeeCategoryAccordion() {
               </div>
 
               <div className="px-[6%] mt-6 md:mt-10">
-                <button className="bg-[#D8D4BC] text-black px-5 py-2 md:px-6 md:py-3 rounded-full">
+                <button className="bg-[#0E3B34] text-white px-5 py-2 md:px-6 md:py-3 rounded-full">
                   SEE ALL {cat}
                 </button>
               </div>

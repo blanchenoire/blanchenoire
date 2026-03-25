@@ -85,8 +85,12 @@ function AuthContent() {
     <div className="min-h-screen bg-[#f5f3ef] flex">
       {/* LEFT SIDE */}
       <div className="hidden md:flex w-1/2 bg-[#e7e1d3] flex-col justify-between p-12 rounded-r-[40px]">
-        <div className="text-3xl font-semibold text-red-600 italic">
-          Blanche Noire.
+        <div className="flex items-center">
+          <img
+            src="/final-logo3.png"
+            alt="logo"
+            className="h-14 md:h-16 w-auto object-contain"
+          />
         </div>
         <div>
           <h1 className="text-5xl font-semibold leading-tight mb-6">

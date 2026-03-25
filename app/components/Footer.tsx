@@ -19,7 +19,7 @@ export default function Footer() {
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              src="/final-logo.png"
+              src="/final-logo3.png"
               alt="logo"
               width={200}
               height={120}

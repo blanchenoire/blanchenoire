@@ -20,16 +20,10 @@ export default function OurStorySection() {
         </h2>
 
         <p className="text-gray-600 max-w-[480px] text-sm md:text-lg mb-8 md:mb-10">
-          This is the space to introduce the business and what it has to offer.
-          Define the qualities and values that make it unique.
+          
+Blanche Noire is built on a simple idea, great coffee begins at the source. Our beans are carefully sourced from renowned regions like Chikmagalur, Coorg, and the Araku Valley, where rich soil and ideal climates shape their distinct character. We work closely with growers to craft blends that balance boldness, smoothness, and depth. Inspired by the origins of coffee and the story behind it, every cup reflects both tradition and modern taste, whether enjoyed at home or in a café.
         </p>
 
-        <button
-          className="flex items-center gap-3 border-b border-black pb-1 text-sm md:text-lg"
-        >
-          CONTACT US
-          <ArrowRight size={18} />
-        </button>
       </div>
 
       {/* RIGHT IMAGES */}
@@ -46,9 +40,9 @@ export default function OurStorySection() {
         </div>
 
         {/* main image */}
-        <div className="relative z-10 w-[240px] h-[280px] md:w-[380px] md:h-[420px] rounded-3xl overflow-hidden shadow-lg">
+        <div className="relative z-10 w-[240px] h-[280px] md:w-[380px] md:h-[460px] rounded-3xl overflow-hidden shadow-lg">
           <Image
-            src="/team.png"
+            src="/berriesOurStory.png"
             alt="coffee team"
             fill
             className="object-cover"

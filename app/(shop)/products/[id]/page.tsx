@@ -161,10 +161,6 @@ export default function ProductPage() {
               }} className="bg-black text-white px-10 py-3 rounded-full">
                 Add to Cart
               </button>
-
-              <button className="border px-10 py-3 rounded-full">
-                Buy Now
-              </button>
             </div>
 
             {/* Accordion */}
