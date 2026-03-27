@@ -50,17 +50,7 @@ export default function SpecialtyCoffee() {
       </section>
 
       {/* VIDEO SECTION */}
-      {/* <div className="w-full mt-8 mb-36 md:mt-16">
-        <video
-          className="w-full h-[300px] sm:h-[350px] md:h-[800px] object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/15381551_1920_1080_25fps.mp4" type="video/mp4" />
-        </video>
-      </div> */}
+      
     </>
   );
 }

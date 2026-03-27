@@ -47,6 +47,24 @@ export default function SustainabilitySection() {
         <span className="hidden md:inline">✺ 100% ORGANIC</span>
         <span className="hidden md:inline">✺ 100% ORGANIC</span>
       </div>
+      <div className="w-full">
+        <video
+          className="w-full h-[300px] sm:h-[350px] md:h-[800px] object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="https://res.cloudinary.com/dsifc5jc2/video/upload/v1774601461/WhatsApp_Video_2026-03-25_at_15.36.58_ei5btg.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div className="w-full bg-[#0F2F23] py-4 md:py-6 flex flex-wrap justify-center gap-6 md:gap-16 text-[#CFE7C4] text-sm md:text-lg tracking-wide">
+        <span>✺ 100% ORGANIC</span>
+        <span>✺ 100% ORGANIC</span>
+        <span>✺ 100% ORGANIC</span>
+        <span className="hidden md:inline">✺ 100% ORGANIC</span>
+        <span className="hidden md:inline">✺ 100% ORGANIC</span>
+      </div>
     </div>
   );
 }

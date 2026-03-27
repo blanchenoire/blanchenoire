@@ -49,8 +49,8 @@ export default function CoffeeCategoryAccordion() {
   };
 
   return (
-    // <section className="bg-[#891A10] text-[#D8D4BC] py-16 md:py-28">
-    <section className="bg-[#D8D4BC] text-black py-16 md:py-28">
+    <section className="bg-[#891A10] text-[#D8D4BC] py-16 md:py-28">
+    {/* <section className="bg-[#D8D4BC] text-black py-16 md:py-28"> */}
 
       {/* HEADER */}
       <div className="px-[6%] flex flex-col md:flex-row justify-between items-start gap-8 mb-12 md:mb-20">
@@ -66,9 +66,13 @@ export default function CoffeeCategoryAccordion() {
           </p>
         </div>
 
-        <button
+        {/* <button
           onClick={() => router.push("/products")}
           className="bg-[#0E3B34] text-white px-5 py-2 md:px-6 md:py-3 rounded-full"
+        > */}
+        <button
+          onClick={() => router.push("/products")}
+          className="bg-[#D8D4BC] text-black px-5 py-2 md:px-6 md:py-3 rounded-full"
         >
           EXPLORE ALL PRODUCTS
         </button>
@@ -76,12 +80,12 @@ export default function CoffeeCategoryAccordion() {
       </div>
 
       {/* ACCORDION */}
-      {/* <div className="w-full border-t border-[#D8D4BC]"> */}
-      <div className="w-full border-t border-black">
+      <div className="w-full border-t border-[#D8D4BC]">
+      {/* <div className="w-full border-t border-black"> */}
 
         {categories.map((cat, i) => (
-          // <div key={i} className="border-b border-[#D8D4BC]">
-          <div key={i} className="border-b border-black">
+          <div key={i} className="border-b border-[#D8D4BC]">
+          {/* <div key={i} className="border-b border-black"> */}
 
             {/* CATEGORY HEADER */}
             <button
@@ -127,7 +131,10 @@ export default function CoffeeCategoryAccordion() {
               </div>
 
               <div className="px-[6%] mt-6 md:mt-10">
-                <button className="bg-[#0E3B34] text-white px-5 py-2 md:px-6 md:py-3 rounded-full">
+                {/* <button className="bg-[#0E3B34] text-white px-5 py-2 md:px-6 md:py-3 rounded-full">
+                  SEE ALL {cat}
+                </button> */}
+                <button className="bg-[#D8D4BC] text-black px-5 py-2 md:px-6 md:py-3 rounded-full">
                   SEE ALL {cat}
                 </button>
               </div>

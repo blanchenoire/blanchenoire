@@ -25,6 +25,7 @@ function NavbarContent() {
   const [role, setRole] = useState<string | null>(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
 
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -59,28 +60,74 @@ function NavbarContent() {
     setCartOpen(true);
   };
 
+  const categories = [
+    "Coffee Core Range",
+    "Innovation Range",
+    "Snacks & Pairings",
+    "Merchandise & Equipment",
+  ];
+
+  // const navigateCategory = (category: string) => {
+  //   router.push(`/products?category=${encodeURIComponent(category)}`);
+  //   setMenuOpen(false);
+  //   setMobileCategoryOpen(false);
+  // };
+
   return (
     <>
-      <div className="w-full flex justify-center pt-4 sm:pt-6">
-        <div className="w-[95%] border-b-2 md:w-[92%] bg-red-550 rounded-full px-4 md:px-8 py-3 flex items-center justify-between">
+      {/* NAVBAR */}
+      <div className="w-full flex justify-center pt-4 pb-2 sm:pt-6">
+        <div className="w-[95%] bg-[#D8D4BC] md:w-[92%] rounded-full px-4 md:px-8 py-3 flex items-center justify-between">
 
           {/* LOGO */}
-          <div onClick={() => router.push("/")} className="cursor-pointer flex items-center">
+          <div onClick={() => router.push("/")} className="cursor-pointer">
             <img
-              className="h-12 sm:h-12 md:h-16 w-auto object-contain"
-              src="/a.png"
+              className="h-12 md:h-16 object-contain"
+              src="/final-logo.png"
               alt="logo"
             />
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="flex items-center gap-4 font-medium text-xl md:gap-8 text-sm">
+          <div className="flex items-center gap-4 md:gap-8 text-sm font-medium">
 
             {/* DESKTOP LINKS */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href={"/products"} className="cursor-pointer">Shop</a>
-              <a className="cursor-pointer">Categories</a>
-              <a className="cursor-pointer">Contact</a>
+            <div className="hidden md:flex text-lg items-center gap-8">
+
+              <span
+                onClick={() => router.push("/products")}
+                className="cursor-pointer"
+              >
+                Shop
+              </span>
+
+              {/* ✅ CATEGORIES DROPDOWN */}
+              <div className="relative group">
+                <span className="cursor-pointer">Categories</span>
+
+                {/* DROPDOWN */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 hidden group-hover:flex flex-col items-center z-50">
+
+                  {/* hover bridge */}
+                  <div className="absolute -top-3 h-3 w-full bg-transparent"></div>
+
+                  <div className="bg-[#D8D4BC] rounded-xl shadow-lg px-8 py-6 flex flex-col items-center gap-4 min-w-[260px]">
+
+                    {categories.map((category, i) => (
+                      <div
+                        key={i}
+                        // onClick={() => navigateCategory(category)}
+                        className="text-sm font-medium tracking-wide hover:text-[#B8210F] hover:font-bold cursor-pointer hover:scale-105 text-center transition"
+                      >
+                        {category.toUpperCase()}
+                      </div>
+                    ))}
+
+                  </div>
+                </div>
+              </div>
+
+              <span className="cursor-pointer">Contact</span>
             </div>
 
             {/* PROFILE */}
@@ -88,7 +135,7 @@ function NavbarContent() {
               <div className="relative" ref={popupRef}>
                 <button
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/10 transition"
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/10"
                 >
                   <User size={20} />
                 </button>
@@ -161,8 +208,39 @@ function NavbarContent() {
       {/* MOBILE DROPDOWN */}
       {menuOpen && (
         <div className="md:hidden mt-4 mx-4 bg-white rounded-2xl shadow-lg p-5 space-y-4">
-          <a href={`${URL}/products`} className="block">Shop</a>
-          <a className="block">Contact</a>
+
+          <div
+            onClick={() => router.push("/products")}
+            className="cursor-pointer"
+          >
+            Shop
+          </div>
+
+          {/* MOBILE CATEGORIES */}
+          <div>
+            <div
+              onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
+              className="cursor-pointer font-medium"
+            >
+              Categories
+            </div>
+
+            {mobileCategoryOpen && (
+              <div className="mt-3 space-y-3">
+                {categories.map((category, i) => (
+                  <div
+                    key={i}
+                    // onClick={() => navigateCategory(category)}
+                    className="text-sm text-gray-700 cursor-pointer"
+                  >
+                    {category}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="cursor-pointer">Contact</div>
 
           {!token && (
             <button
