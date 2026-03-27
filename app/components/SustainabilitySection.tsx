@@ -55,7 +55,7 @@ export default function SustainabilitySection() {
           muted
           playsInline
         >
-          <source src={`https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/video/upload/v1774601461/WhatsApp_Video_2026-03-25_at_15.36.58_ei5btg.mp4`} type="video/mp4" />
+          <source src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v1774601461/WhatsApp_Video_2026-03-25_at_15.36.58_ei5btg.mp4`} type="video/mp4" />
         </video>
       </div>
       <div className="w-full bg-[#0F2F23] py-4 md:py-6 flex flex-wrap justify-center gap-6 md:gap-16 text-[#CFE7C4] text-sm md:text-lg tracking-wide">
