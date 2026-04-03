@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Footer() {
@@ -43,9 +44,11 @@ export default function Footer() {
           {/* QUICK LINKS */}
           <div>
             <h4 className="font-semibold mb-4 text-center md:text-left">QUICK LINKS</h4>
-            <ul className="space-y-2 text-sm text-center md:text-left">
-              <li>Shop</li>
-              <li>Wholesale</li>
+            <ul className="space-y-2 cursor-pointer text-sm text-center md:text-left">
+              <li className="hover:underline" onClick={()=>{
+                router.push("/products")
+              }}>Shop</li>
+              {/* <li>Wholesale</li> */}
             </ul>
           </div>
 
@@ -53,11 +56,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-center md:text-left">POLICY</h4>
             <ul className="space-y-2 text-sm text-center md:text-left">
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
-              <li>Refund Policy</li>
-              <li>Shipping Policy</li>
-              <li>Accessibility Statement</li>
+              <li className="cursor-pointer hover:underline" onClick={()=>{router.push("/terms-conditions")}}>Terms & Conditions</li>
             </ul>
           </div>
 
@@ -65,8 +64,8 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-center md:text-left">FOLLOW</h4>
             <ul className="space-y-2 text-sm text-center md:text-left">
-              <li>Facebook</li>
-              <li>Instagram</li>
+              {/* <li>Facebook</li> */}
+              <Link href={"https://www.instagram.com/blanchenoirecoffee/"}><li className="hover:underline cursor-pointer">Instagram</li></Link>
             </ul>
           </div>
 

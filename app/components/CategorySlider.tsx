@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: string;
@@ -16,6 +17,7 @@ export default function ProductCategorySlider() {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +100,7 @@ export default function ProductCategorySlider() {
               <div
                 key={product.id}
                 className="min-w-[260px] max-w-[260px] flex-shrink-0 group cursor-pointer"
+                onClick={()=>{router.push(`/products/${product.id}`)}}
               >
                 {/* IMAGE */}
                 <div className="rounded-2xl overflow-hidden bg-[#ebe7df] shadow-sm">

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: string;
@@ -15,11 +16,12 @@ interface Product {
 }
 
 export default function ProductCard({product}: {product: Product}) {
+  const router = useRouter()
   return (
     <div className="group cursor-pointer">
       
       {/* IMAGE CARD */}
-      <div className="relative rounded-3xl overflow-hidden bg-[#D7BFB3] h-[420px] flex items-center justify-center">
+      <div onClick={()=>{router.push(`/products/${product.id}`)}} className="relative rounded-3xl overflow-hidden bg-[#D7BFB3] h-[420px] flex items-center justify-center">
 
         {product.bestSeller && (
           <span className="absolute top-5 left-5 z-20 bg-[#D7F2C2] text-black text-xs px-3 py-1 rounded-full">
