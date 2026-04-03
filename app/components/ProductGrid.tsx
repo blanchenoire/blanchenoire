@@ -69,7 +69,7 @@ export default function ProductGrid() {
   return (
     <section className="px-[6%] py-16 md:py-24">
 
-  <h2 className="text-[32px] md:text-[64px] mb-10 md:mb-16">
+  <h2 className="text-[32px] md:text-[64px] mb-10 md:mb-16 leading-tight font-extrabold tracking-tight">
     TOP PICKS
   </h2>
 

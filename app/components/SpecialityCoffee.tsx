@@ -11,7 +11,7 @@ export default function SpecialtyCoffee() {
       <section className="px-[6%] py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
 
         <div>
-          <h2 className="text-[36px] leading-[40px] md:text-[70px] md:leading-[75px] mb-6 md:mb-10 font-medium">
+          <h2 className="text-[36px] leading-[40px] md:text-[70px] font-bold tracking-tight md:leading-[75px] mb-6 md:mb-10">
             SPECIALTY
             <br />
             COFFEE

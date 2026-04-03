@@ -30,7 +30,7 @@ model Product {
   productName    String
   description    String?
   price          Decimal
-  category       String?
+  category       Category
   stock          Int         @default(0)
   bestSeller     Boolean     @default(false)
   createdAt      DateTime    @default(now())
@@ -100,6 +100,13 @@ enum OrderStatus {
   Shipped
   Delivered
   Cancelled
+}
+
+enum Category {
+  Coffee_Core
+  Energy_Shots
+  Snacks_And_Pairings
+  Equipment
 }
 
 enum Role {

@@ -7,7 +7,7 @@ export default function OurStorySection() {
   const router = useRouter();
 
   return (
-    <section className="px-[6%] py-20 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+    <section className="px-[6%] py-12 md:pt-12 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
 
       {/* LEFT CONTENT */}
       <div>

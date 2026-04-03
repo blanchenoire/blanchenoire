@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Footer from "@/app/components/Footer";
 
 interface Product {
@@ -18,7 +18,7 @@ interface Product {
     productGallery: string[];
 }
 
-export default function AllProducts() {
+function AllProducts() {
     const [mobileFilter, setMobileFilter] = useState(false);
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
@@ -26,6 +26,7 @@ export default function AllProducts() {
     const [browseFilter, setBrowseFilter] = useState<"all" | "bestSeller">("all");
     const [sortOrder, setSortOrder] = useState("recommended");
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     async function getProds() {
         const res = await fetch(`/api/products`);
@@ -34,19 +35,31 @@ export default function AllProducts() {
         setProducts(fetchedProducts);
 
         // extract unique categories from products
-        const uniqueCategories = [
-            ...new Set(
-                fetchedProducts
-                    .map((p) => p.category)
-                    .filter(Boolean) as string[]
-            ),
-        ];
+        // const uniqueCategories = [
+        //     ...new Set(
+        //         fetchedProducts
+        //             .map((p) => p.category)
+        //             .filter(Boolean) as string[]
+        //     ),
+        // ];
+        // setCategories(uniqueCategories);
+
+        const categoriesRes = await fetch("/api/categories");
+        const categoriesResponse = await categoriesRes.json();
+        const uniqueCategories = categoriesResponse.categories
         setCategories(uniqueCategories);
     }
 
     useEffect(() => {
         getProds();
     }, []);
+
+    useEffect(() => {
+        const categoryParam = searchParams.get("category");
+        if (categoryParam) {
+            setSelectedCategories([categoryParam]);
+        }
+    }, [searchParams]);
 
     const toggleCategory = (cat: string) => {
         setSelectedCategories((prev) =>
@@ -60,6 +73,9 @@ export default function AllProducts() {
         setSortOrder("recommended");
     };
 
+    const formatCategory = (value: string) => {
+        return value.replace(/_/g, " ");
+    }
     const filteredProducts = products
         .filter((p) => {
             if (browseFilter === "bestSeller") return p.bestSeller;
@@ -115,7 +131,7 @@ export default function AllProducts() {
                                 checked={selectedCategories.includes(cat)}
                                 onChange={() => toggleCategory(cat)}
                             />
-                            {cat}
+                            {formatCategory(cat)}
                         </label>
                     ))}
                 </div>
@@ -275,4 +291,12 @@ export default function AllProducts() {
             <Footer />
         </>
     );
+}
+
+export default function Products() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <AllProducts />
+        </Suspense>
+    )
 }

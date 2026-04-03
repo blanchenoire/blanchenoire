@@ -8,6 +8,7 @@ import ProductGrid from "./components/ProductGrid";
 import CoffeeAccordion from "./components/CoffeeAccordion";
 import OurStorySection from "./components/OurStorySection";
 import Footer from "./components/Footer";
+import CategorySlider from "./components/CategorySlider";
 
 export default function Home() {
   return (
@@ -19,7 +20,8 @@ export default function Home() {
         <SpecialtyCoffee/>
         <SustainabilitySection/>
         <ProductGrid/>
-        <CoffeeAccordion/>
+        {/* <CoffeeAccordion/> */}
+        <CategorySlider/>
         <OurStorySection/>
         <Footer/>
       </main>

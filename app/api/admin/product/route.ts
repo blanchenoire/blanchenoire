@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { verifyAdmin } from "@/lib/verify";
 
 import { v2 as cloudinary } from "cloudinary";
+import { Category } from "@/app/generated/prisma/enums";
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     const productName = formData.get("productName") as string;
     const description = formData.get("description") as string;
     const priceRaw = formData.get("price") as string;
-    const category = formData.get("category") as string;
+    const category = formData.get("category") as Category;
     const stockRaw = formData.get("stock") as string;
     const images = formData.getAll("images") as File[];
     const bestSeller = formData.get("bestSeller") === "true";

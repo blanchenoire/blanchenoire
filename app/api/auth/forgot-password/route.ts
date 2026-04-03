@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, message: "OTP sent to your email" });
 
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ success: false, message: "Something went wrong" }, { status: 500 });
-    }
+    console.error("FULL ERROR:", JSON.stringify(error, null, 2)); // ✅ see real error
+    return NextResponse.json({ success: false, message: "Something went wrong" }, { status: 500 });
+}
 }

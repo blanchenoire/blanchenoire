@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -20,6 +20,17 @@ export default function AddProductPage() {
   const [images, setImages] = useState<File[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const getCategories = async () => {
+    const res = await fetch("/api/categories");
+    const response = await res.json();
+    setCategories(response.categories)
+  }
+
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -153,12 +164,27 @@ export default function AddProductPage() {
           </div>
 
           {/* Category */}
-          <input
+          {/* <input
             name="category"
             placeholder="Category (e.g. Coffee, Beans)"
             className="w-full p-3 border rounded-lg text-sm md:text-base"
             onChange={handleChange}
-          />
+          /> */}
+
+          <select
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg text-sm md:text-base"
+          >
+            <option value="">Select Category</option>
+
+            {categories.map((cat, i) => (
+              <option key={i} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
           {/* Best Seller */}
           <label className="flex items-center gap-2 text-sm md:text-base">
