@@ -3,7 +3,7 @@ import { verifyAdmin } from "@/lib/verify";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
     const admin = verifyAdmin(req);
     if (!admin) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
