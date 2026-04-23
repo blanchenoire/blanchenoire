@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import { useRouter, useSearchParams } from "next/navigation";
 import Footer from "@/app/components/Footer";
+import { Loader } from "lucide-react";
 
 interface Product {
     id: string;
@@ -25,12 +26,15 @@ function AllProducts() {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [browseFilter, setBrowseFilter] = useState<"all" | "bestSeller">("all");
     const [sortOrder, setSortOrder] = useState("recommended");
+    const [loading, setLoading] = useState<Boolean>(false);
     const router = useRouter();
     const searchParams = useSearchParams();
 
     async function getProds() {
+        setLoading(true);
         const res = await fetch(`/api/products`);
         const response = await res.json();
+        setLoading(false)
         const fetchedProducts: Product[] = response.data;
         setProducts(fetchedProducts);
 
@@ -194,7 +198,8 @@ function AllProducts() {
 
                         {/* PRODUCT GRID */}
                         <div className="grid md:grid-cols-2 gap-12">
-                            {filteredProducts.map((product: Product) => (
+                            
+                            {loading? <Loader/> :filteredProducts.map((product: Product) => (
                                 <div
                                     onClick={() => router.push(`/products/${product.id}`)}
                                     key={product.id}

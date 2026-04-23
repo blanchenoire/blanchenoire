@@ -3,8 +3,10 @@
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function OurStoryPage() {
+  const router = useRouter();
   return (
     <div className="bg-[#f5f3ef] text-[#1c1c1a]">
 
@@ -31,7 +33,7 @@ export default function OurStoryPage() {
               From sourcing to roasting, every detail is curated to elevate every sip.
             </p>
 
-            <button className="bg-black text-white px-7 py-3 rounded-full text-sm md:text-base font-medium hover:scale-95 transition">
+            <button onClick={()=>{router.push("/products")}} className="bg-black text-white px-7 py-3 rounded-full text-sm md:text-base font-medium hover:scale-95 transition">
               Explore Collection
             </button>
           </div>

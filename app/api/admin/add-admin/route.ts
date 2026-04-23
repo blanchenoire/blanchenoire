@@ -9,11 +9,21 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const adminBody = await req.json();
-    if (!adminBody) {
+    if (!adminBody || !adminBody.email || !adminBody.username || !adminBody.password || !adminBody.contact) {
         return NextResponse.json({
             success: false,
-            message: "Enter some data"
+            message: "Enter complete data"
         })
+    }
+    const existingUser = await prisma.user.findUnique({
+        where: { email: adminBody.email }
+    });
+
+    if (existingUser) {
+        return NextResponse.json({
+            success: false,
+            message: "Admin with this email already exists"
+        }, { status: 400 });
     }
     try {
         const hashedPassword = await bcrypt.hash(adminBody.password, 10);

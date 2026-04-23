@@ -87,7 +87,7 @@ function AuthContent() {
       <div className="hidden md:flex w-1/2 bg-[#e7e1d3] flex-col justify-between p-12 rounded-r-[40px]">
         <div className="flex items-center">
           <img
-            src="/final-logo3.png"
+            src="/final-logo.png"
             alt="logo"
             className="h-14 md:h-16 w-auto object-contain"
           />

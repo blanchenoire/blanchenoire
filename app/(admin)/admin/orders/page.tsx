@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AdminNavbar from "@/app/components/AdminNavbar";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -44,27 +45,7 @@ export default function OrdersPage() {
     <div className="min-h-screen bg-[#F4F4F4] text-black">
 
       {/* Navbar */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 px-4 md:px-8 py-4 bg-[#E8E1CF] rounded-b-2xl shadow">
-
-        <div
-          onClick={() => router.push("/")}
-          className="flex items-center gap-2 cursor-pointer"
-        >
-          <img className="h-8 md:h-10 w-auto" src="/a.png" alt="logo" />
-          <span className="text-[10px] md:text-[12px] tracking-widest uppercase text-gray-600">
-            Admin Panel
-          </span>
-        </div>
-
-        <div className="flex gap-4 md:gap-6 font-medium text-sm md:text-base">
-          <Link href="/admin/products" className="hover:underline">
-            Products
-          </Link>
-          <Link href="/admin/orders" className="hover:underline">
-            Orders
-          </Link>
-        </div>
-      </div>
+      <AdminNavbar/>
 
       <div className="p-4 md:p-8">
         <h1 className="text-2xl md:text-3xl font-bold mb-6">Orders</h1>

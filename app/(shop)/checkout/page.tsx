@@ -175,7 +175,6 @@ export default function Checkout() {
 
     async function handleProceedButton() {
         const token = localStorage.getItem("token")
-        const userId = localStorage.getItem("userId")
         try {
             const loaded = await loadRazorpay();
             if (!loaded) return alert("Razorpay SDK failed to load");

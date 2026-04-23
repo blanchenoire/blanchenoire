@@ -14,6 +14,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CartDrawer from "./CartDrawer";
 import { useState, useRef, useEffect, Suspense } from "react";
 
+
 function NavbarContent() {
   const router = useRouter();
   const pathname = usePathname();
@@ -29,6 +30,14 @@ function NavbarContent() {
   const [categories, setCategories] = useState([]);
 
   const popupRef = useRef<HTMLDivElement>(null);
+
+  const categoryRoutes: Record<string, string> = {
+    "coffee core": "/coffee-core",
+    "energy shots": "/coffee-shots",
+    "snacks and pairings": "/snacking-pairing",
+    "equipment": "/coffee-equipments",
+  };
+
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -46,8 +55,8 @@ function NavbarContent() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(()=>{
-    async function getCategories(){
+  useEffect(() => {
+    async function getCategories() {
       const res = await fetch("/api/categories")
       const response = await res.json();
       setCategories(response.categories)
@@ -55,7 +64,7 @@ function NavbarContent() {
     getCategories()
   }, [])
 
-  const formatCat = (value: string) =>{
+  const formatCat = (value: string) => {
     return value.replace(/_/g, " ");
   }
 
@@ -115,22 +124,30 @@ function NavbarContent() {
                 <div className="absolute -top-3 h-3 w-full bg-transparent"></div>
 
                 <div className="bg-[#D8D4BC] rounded-xl shadow-lg px-8 py-6 flex flex-col items-center gap-4 min-w-[260px]">
-                  {categories.map((category, i) => (
-                    <div
-                      key={i}
-                      className="text-lg font-semibold tracking-wide hover:text-[#B8210F] hover:font-bold cursor-pointer hover:scale-105 text-center transition"
-                      onClick={()=>{
-                        router.push(`/products?category=${encodeURIComponent(category)}`);
-                      }}
-                    >
-                      {formatCat(category)}
-                    </div>
-                  ))}
+                  {categories.map((category, i) => {
+                    const normalize = (str: string) =>
+                      str.toLowerCase().replace(/_/g, " ").trim();
+
+                    const key = normalize(category);
+
+                    return (
+                      <div
+                        key={i}
+                        className="text-lg font-semibold tracking-wide hover:text-[#B8210F] hover:font-bold cursor-pointer hover:scale-105 text-center transition"
+                        onClick={() => {
+                          const route = categoryRoutes[key];
+                          if (route) router.push(route);
+                        }}
+                      >
+                        {formatCat(category)}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            <span onClick={()=>{router.push("/contact")}} className="cursor-pointer hover:scale-110 transition-transform duration-200">Contact</span>
+            <span onClick={() => { router.push("/contact") }} className="cursor-pointer hover:scale-110 transition-transform duration-200">Contact</span>
           </div>
 
           {/* RIGHT SIDE */}
@@ -234,7 +251,7 @@ function NavbarContent() {
             )}
           </div>
 
-          <div className="cursor-pointer" onClick={()=>{router.push("/contact")}}>Contact</div>
+          <div className="cursor-pointer" onClick={() => { router.push("/contact") }}>Contact</div>
 
           {!token && (
             <button
