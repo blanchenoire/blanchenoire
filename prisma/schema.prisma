@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Cart {
+  id       String     @id @default(uuid())
+  userId   String     @unique
+  User     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CartItem CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cartId    String
+  productId String
+  quantity  Int     @default(1)
+  Cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model Product {
+  id             String      @id @default(uuid())
+  productName    String
+  description    String?
+  price          Decimal
+  category       Category
+  stock          Int         @default(0)
+  bestSeller     Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  productGallery String[]
+  CartItem       CartItem[]
+  orderItems     OrderItem[]
+}
+
+model User {
+  id              String           @id @default(uuid())
+  email           String           @unique
+  username        String
+  password        String
+  contact         String           @unique
+  role            Role
+  Cart            Cart?
+  orders          Order[]
+  otp             String?
+  otpExpiry       DateTime?
+  isEmailVerified Boolean? @default(false)
+  deliveryDetails DeliveryDetail[]
+  createdAt       DateTime         @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal // snapshot of price at time of purchase
+}
+
+model DeliveryDetail {
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  name      String
+  phone     String
+  address   String
+  city      String
+  state     String
+  pincode   String
+  landmark  String?
+  isDefault Boolean @default(false) // so user can set a preferred address
+  orders    Order[]
+}
+
+model Order {
+  id                String         @id @default(cuid())
+  userId            String
+  user              User           @relation(fields: [userId], references: [id])
+  items             OrderItem[]
+  deliveryDetailId  String // which address they chose at checkout
+  deliveryDetail    DeliveryDetail @relation(fields: [deliveryDetailId], references: [id])
+  status            OrderStatus    @default(Pending)
+  razorpayOrderId   String?        @unique
+  razorpayPaymentId String?
+  paymentStatus     PaymentStatus  @default(Pending)
+  total             Decimal
+  createdAt         DateTime       @default(now())
+}
+
+enum OrderStatus {
+  Pending
+  Shipped
+  Delivered
+  Cancelled
+}
+
+enum Category {
+  Coffee_Core
+  Energy_Shots
+  Snacks_And_Pairings
+  Equipment
+}
+
+enum Role {
+  Admin
+  User
+}
+
+enum PaymentStatus {
+  Pending
+  Paid
+  Failed
+  Refunded
+}
